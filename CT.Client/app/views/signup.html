@@ -1,0 +1,13 @@
+﻿<form class="form-login" role="form" name="signupForm">
+    <h2 class="form-login-heading">Sign up</h2>
+    <input type="text" class="form-control" placeholder="Firstname" data-ng-model="registration.firstName" required autofocus>
+    <input type="text" class="form-control" placeholder="Lastname" data-ng-model="registration.lastName" required>
+    <input type="text" class="form-control" placeholder="Email" data-ng-model="registration.email" required>
+    <input type="text" class="form-control" placeholder="Username" data-ng-model="registration.userName" required>
+    <input type="password" class="form-control" placeholder="Password" data-ng-model="registration.password" required>
+    <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.confirmPassword" required>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Register</button>
+    <div data-ng-hide="errorMessages == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'" style="margin-top: 10px; float: left">
+        <span ng-repeat="message in errorMessages track by $index">{{message}}<br /></span>
+    </div>
+</form>

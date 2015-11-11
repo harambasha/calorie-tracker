@@ -1,0 +1,112 @@
+﻿<div class="row" ng-show="addOrEdit">
+    <div class="col-md-6 col-md-offset-3">
+        <p data-ng-hide="errorMessages == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'" style="margin-top: 10px">
+            <span ng-repeat="message in errorMessages track by $index">{{message}}<br /></span>
+        </p>
+        <p class="alert alert-danger" ng-show="isError">{{addingMessage}}</p>
+        <p class="alert alert-success" ng-show="isSuccess">{{addingMessage}}</p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Add / Edit User
+                <div class="panel-body">
+                    <form role="form" name="form" class="form-horizontal" novalidate>
+                        <div class="form-group" form-group-validate>
+                            <label for="fullName" class="col-md-2 control-label">Full name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="fullName" name="fullName" ng-model="newUser.fullName" required />
+                            </div>
+                        </div>
+                        <div class="form-group" form-group-validate>
+                            <label for="fullName" class="col-md-2 control-label">User name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="userName" name="userName" ng-model="newUser.userName" required />
+                            </div>
+                        </div>
+                        <div class="form-group" form-group-validate>
+                            <label for="email" class="col-md-2 control-label">Email</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="email" name="email" ng-model="newUser.email" required />
+                            </div>
+                        </div>
+                        <div ng-show="newUser.id === null">
+                            <div class="form-group" form-group-validate>
+                                <label for="email" class="col-md-2 control-label">Password</label>
+                                <div class="col-md-10">
+                                    <input type="password" class="form-control" id="password" name="email" ng-model="newUser.password" required />
+                                </div>
+                            </div>
+                            <div class="form-group" form-group-validate>
+                                <label for="email" class="col-md-2 control-label">Confirm Password</label>
+                                <div class="col-md-10">
+                                    <input type="password" class="form-control" id="confirmPassword" name="email" ng-model="newUser.confirmPassword" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" form-group-validate ng-show="newUser.id !== null">
+                            <label for="roles" class="col-md-2 control-label">Roles</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="textbox" autocomplete="off" ng-model="newRole" typeahead="role as role.name for role in roles | filter:$viewValue | limitTo:8" />
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-default" ng-click="addRole()">Add</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 col-md-offset-2">
+                                        <button type="button" class="btn btn-info btn-xs label-button" style="  margin-right: 2px; margin-top: 5px;" ng-repeat="role in newUser.roles" ng-click="removeRole(role)">
+                                            {{role}}
+                                            <span class="glyphicon glyphicon-remove label-remove-button">
+                                                <span class="sr-only">Remove Role</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+                        <button type="button" class="btn btn-primary" ng-click="cancelEditOrAdd()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well well-sm">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="new()">New</button>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Full name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th ng-show="authentication.isAdmin">Roles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="user in users">
+                    <td>
+                        {{ user.fullName }}
+                    </td>
+                    <td>
+                        {{ user.userName }}
+                    </td>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                    <td ng-show="authentication.isAdmin">
+                        <span ng-repeat="role in user.roles track by $index">{{role}}&nbsp;</span>
+                    </td>
+                    <td><button type="button" class="btn btn-default" ng-click="edit(user)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" ng-click="delete(user)" ng-disabled="checkIfUserIsAdmin(user)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

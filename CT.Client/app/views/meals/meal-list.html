@@ -1,0 +1,158 @@
+﻿<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div ng-hide="addOrEdit">
+            <div class="well well-sm">
+                <div class="btn-group">
+                    <label>
+                        <input type="radio" ng-model="filter.filterOption" ng-change="getAllMeals()" value="all">
+                        Show all meals
+                    </label><br />
+                    <label>
+                        <input type="radio" ng-model="filter.filterOption" value="date">
+                        Filter by date and time
+                    </label>
+                </div>
+            </div>
+            <div class="well well-sm" ng-hide="filter.filterOption == 'all'">
+                <div class="btn-group">
+                    <div style="float: left">
+                        <div>
+                            <label for="startDate" class="col-md-1 control-label">Start Date</label>
+                            <div class="col-md-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="filter.startDate" is-open="startDate" min-date="minDate" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" id="startDate" ng-click="open($event, 'startDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="endDate" class="col-md-1 control-label">End Date</label>
+                            <div class="col-md-3">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="filter.endDate" is-open="endDate" min-date="minDate" datepicker-options="dateOptions" close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" id="endDate" ng-click="open($event, 'endDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="fromTime" class="col-md-1 control-label">
+                                From Time
+                            </label>
+                            <p class="input-group">
+                                <div class="col-md-3">
+                                    <input ng-model="filter.fromTime" ui-timepicker="options" required id="fromTime" />
+                                </div>
+                            </p>
+                        </div>
+                        <div>
+                            <label for="endDate" class="col-md-1 control-label">
+                                To Time
+                            </label>
+                            <p class="input-group">
+                                <div class="col-md-3">
+                                    <input ng-model="filter.toTime" ui-timepicker="options" required id="toTime" />
+                                </div>
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="filterMeals()" style="float:right">Filter</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="alert alert-danger" ng-show="showError">{{message}}</p>
+        </div><div class="well well-sm" ng-hide="addOrEdit">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="new()">New</button>
+            </div>
+        </div>
+        <div class="row" ng-show="addOrEdit">
+            <div class="col-md-6 col-md-offset-3">
+                <p data-ng-hide="errorMessages == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'" style="margin-top: 10px">
+                    <span ng-repeat="message in errorMessages track by $index">{{message}}<br /></span>
+                </p>
+                <p class="alert alert-danger" ng-show="isError">{{addingMessage}}</p>
+                <p class="alert alert-success" ng-show="isSuccess">{{addingMessage}}</p>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Add / Edit Meal
+                        <div class="panel-body">
+                            <form role="form" name="form" class="form-horizontal" novalidate>
+                                <div class="form-group" form-group-validate>
+                                    <label for="name" class="col-md-2 control-label">Description</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="name" name="name" ng-model="newMeal.description" required />
+                                    </div>
+                                </div>
+                                <div class="form-group" form-group-validate>
+                                    <label for="tags" class="col-md-2 control-label">Date</label>
+                                    <div class="col-md-10">
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="newMeal.date" is-open="dateCreated" min-date="minDate" datepicker-options="dateOptions" close-text="Close" required />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" id="newMealdateCreated" ng-click="open($event, 'dateCreated')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group" form-group-validate>
+                                    <label for="time" class="col-md-2 control-label">Time</label>
+                                    <div class="col-md-10">
+                                        <input ng-model="newMeal.time" ui-timepicker="options" required id="timeOfDayEntered" />
+                                    </div>
+                                </div>
+                                <div class="form-group" form-group-validate>
+                                    <label for="caloriesConsumed" class="col-md-2 control-label">Calories consumed</label>
+                                    <div class="col-md-10">
+                                        <input type="number" id="caloriesConsumed" name="caloriesConsumed" ng-model="newMeal.caloriesConsumed" required />
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+                                <button type="button" class="btn btn-primary" ng-click="cancelEditOrAdd()">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="alert alert-danger" ng-show="meals.length  > 0 &&isExceeded">{{calorieAmountMessage}}</p>
+        <p class="alert alert-success" ng-show="meals.length  > 0 && isExceeded != null && !isExceeded">{{calorieAmountMessage}}</p>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Calories consumed</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="meal in meals">
+                    <td>
+                        {{ meal.description }}
+                    </td>
+                    <td>
+                        {{ meal.date }}
+                    </td>
+                    <td>
+                        {{ meal.time }}
+                    </td>
+                    <td>
+                        {{ meal.caloriesConsumed }}
+                    </td>
+                    <td><button type="button" class="btn btn-default" ng-click="edit(meal)">Edit</button></td>
+                    <td><button type="button" class="btn btn-danger" ng-click="delete(meal)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+         <p class="alert alert-danger" ng-show="nothingFound">There are no results for specified date and times!!</p>
+    </div>
+</div>

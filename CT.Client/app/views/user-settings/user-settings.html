@@ -1,0 +1,49 @@
+﻿<div class="row" ng-show="addOrEdit">
+    <div class="col-md-6 col-md-offset-3">
+        <p data-ng-hide="errorMessages == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'" style="margin-top: 10px">
+            <span ng-repeat="message in errorMessages track by $index">{{message}}<br /></span>
+        </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Add / Edit User setting
+                <div class="panel-body">
+                    <form role="form" name="form" class="form-horizontal" novalidate>
+                        <div class="form-group" form-group-validate>
+                            <label for="dailyCalories" class="col-md-2 control-label">Daily calories</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" id="dailyCalories" name="dailyCalories" ng-model="newUserSetting.dailyCalories " required />
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+                        <button type="button" class="btn btn-primary" ng-click="cancelEdit()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="well well-sm" ng-hide="userSettings.length > 0">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="new()">New</button>
+            </div>
+        </div>
+        <table class=" table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Daily calories amount</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="userSetting in userSettings">
+                    <td>
+                        {{ userSetting.dailyCalories }}
+                    </td>
+                    <td><button type="button" class="btn btn-default" ng-click="edit(userSetting)">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="calorieTrackingApp">
+<head>
+    <meta name="keywords" content="calories,tracking, nutrition, healthy eating, counting calories, daily, wellness, body shape, fitness" />
+    <meta name="description" content="Calorie tracing application created by Ismir Harambasic for Toptal assesment of developer skills" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>Calorie Tracking Toptal</title>
+    <link href="content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/css/site.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.css" rel="stylesheet" />
+    <link href="content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/jquery.timepicker.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <!-- 3rd party libraries -->
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/angular-resource.min.js"></script>
+    <script src="scripts/angular-ui-router.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+    <script src="scripts/ui-bootstrap.js"></script>
+    <script src="scripts/ui-bootstrap-tpls.js"></script>
+    <script src="scripts/underscore.min.js"></script>
+    <script src="scripts/jquery.timepicker.js"></script>
+    <script src="scripts/moment.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navigationController">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!authentication.isAuth">
+                    <li ng-class="navigationStyle(['userSettings'])">
+                        <a ui-sref="userSettings.list" ng-hide="!authentication.isAuth">Logged in as: <small>{{authentication.userName}}</small></a>
+                    </li>
+                    <li ng-class="navigationStyle(['meals'])">
+                        <a ui-sref="meals.list" ng-hide="!authentication.isAuth">Meals</a>
+                    </li>
+                    <li ng-class="navigationStyle(['users'])">
+                        <a ui-sref="users.list" ng-show="showUserEditing()">Users</a>
+                    </li>
+                    <li ng-class="navigationStyle(['login'])" ng-hide="authentication.isAuth">
+                        <a ui-sref="login">Login</a>
+                    </li>
+                    <li ng-class="navigationStyle(['signup'])" ng-hide="authentication.isAuth">
+                        <a ui-sref="signup">Signup</a>
+                    </li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron">
+        <img src="content/images/logo.png" class="logo-style" />
+        <div class="container">
+            <div class="page-header text-center">
+                <h1> Start tracking calories today</h1>
+            </div>
+            <p>Our program isn't built on gimmicks, miracle diets, pills, or special foods, but a solid, scientific foundation. Its great tools and innovative learning system have already helped thousands take control of their weight. Become our next success story.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div ui-view></div>
+    </div>
+    <hr />
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted">
+                        Created by Ismir Harambasic. Twitter: <a target="_blank" href="https://twitter.com/Ismir_H">@Ismir_H</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Load app main script -->
+    <script src="app/app.js?v=2"></script>
+
+    <!-- Load custom routes -->
+    <script src="app/routes/mealsRoutes.js"></script>
+    <script src="app/routes/usersRoutes.js"></script>
+    <script src="app/routes/userSettingsRoutes.js"></script>
+
+    <!-- Load services -->
+    <script src="app/services/navigationService.js"></script>
+    <script src="app/services/authInterceptorService.js?v=2"></script>
+    <script src="app/services/authService.js?v=2"></script>
+    <script src="app/services/usersService.js?v=2"></script>
+    <script src="app/services/mealsService.js"></script>
+    <script src="app/services/userSettingsService.js"></script>
+    <script src="app/services/rolesService.js"></script>
+
+    <!-- Load controllers -->
+    <script src="app/controllers/main/navigationController.js?v=2"></script>
+    <script src="app/controllers/main/homeController.js?v=2"></script>
+    <script src="app/controllers/main/loginController.js?v=2"></script>
+    <script src="app/controllers/main/signupController.js?v=2"></script>
+
+    <script src="app/controllers/users/usersController.js?v=2"></script>
+    <script src="app/controllers/meals/mealsController.js?v=2"></script>
+    <script src="app/controllers/user-settings/userSettingListController.js"></script>
+    <!-- Load custom directives -->
+    <script src="app/directives/form-group-validate.js"></script>
+    <script src="app/directives/time-picker.js" ></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿<div class="row" ng-show="!authentication.isAuth">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-4">
+        <h2>Login</h2>
+        <p class="text-primary">If you have Username and Password, you can use the button below to access your daily calorie tracking</p>
+        <p>
+            <a class="btn btn-info" href="#/login" role="button">Login &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Sign Up</h2>
+        <p class="text-primary">Use the button below to create Username and Password to access your daily calorie tracking and management</p>
+        <p>
+            <a class="btn btn-info" href="#/signup" role="button">Sign Up &raquo;</a>
+        </p>
+    </div>
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+</div>
+<div class="row" ng-show="authentication.isAuth">
+    <div class="text-center">
+        <h2>We welcome you again {{authentication.userName}} !!!</h2>
+        <p class="text-primary">Now you can track your daily calories intake and set your desired daily calorie goal. Let's go follow the link below</p>
+        <a class="btn btn-info" href="#/meals" role="button">Calorie and meal tracking &raquo;</a>
+
+        <div ng-show="showUserEditing()" style="margin-top:20px">
+            <p class="text-primary">You are authorized as a priviliged user so you can also edit, delete and modify users</p>
+            <a class="btn btn-info" href="#/users" role="button">User editing &raquo;</a>
+        </div>
+    </div>
+</div>
