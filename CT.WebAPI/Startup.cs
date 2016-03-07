@@ -20,7 +20,7 @@ namespace CT.WebAPI
 {
     public class Startup
     {
-        internal void Configuration(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
             app.UseCors(CorsOptions.AllowAll);
 
